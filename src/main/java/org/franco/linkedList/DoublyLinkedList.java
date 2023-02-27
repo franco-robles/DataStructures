@@ -1,14 +1,16 @@
 package org.franco.linkedList;
 
 
-public class LinkedList <E> {
+import org.franco.node.Node;
+
+public class DoublyLinkedList<E> {
     //attributes
-    private Nodo<E> first;
-    private Nodo<E> last;
+    private Node<E> first;
+    private Node<E> last;
     private Long size;
 
     //constructor
-    public LinkedList(){
+    public DoublyLinkedList(){
          size =0L;
          last = null;
          first = null;
@@ -31,43 +33,43 @@ public class LinkedList <E> {
     //Insertion at the End
     public void addEnd(E value){
         //"end" is where the X is  a->b->c->d->X
-        Nodo<E> nodo = new Nodo<E>(value);
-        nodo.previous = last;
+        Node<E> node = new Node<E>(value);
+        node.previous = last;
         if(last==null){
-            first = nodo;
+            first = node;
         }else {
-            last.next = nodo;
+            last.next = node;
         }
-        last = nodo;
+        last = node;
         size++;
     }
 
     //Insertion at the beginning
     public void addFront(E value){
         //"beginning" is where the X is  X->b->c->d->
-        Nodo<E> nodo = new Nodo<E>(value);
-        nodo.next = first;
+        Node<E> node = new Node<E>(value);
+        node.next = first;
         if(first==null){
-            last = nodo;
+            last = node;
         }else {
-            first.previous = nodo;
+            first.previous = node;
         }
-        first = nodo;
+        first = node;
         size++;
     }
 
     //Insertion in-between nodes
     //the prevNode has to exist on the list: i need check this
     //Falta comprobar que el nodo exita eso es O(n) con n=size
-    public void addAfter(Nodo<E> prevNodo, E value){
-         if(prevNodo ==null) {
+    public void addAfter(Node<E> prevNode, E value){
+         if(prevNode ==null) {
             System.out.println("error: node cannot be null");
             return;
         }
-        Nodo<E> newNode = new Nodo<E>(value);
-        newNode.next = prevNodo.next;
-        newNode.previous = prevNodo;
-        prevNodo.next = newNode;
+        Node<E> newNode = new Node<E>(value);
+        newNode.next = prevNode.next;
+        newNode.previous = prevNode;
+        prevNode.next = newNode;
         if(newNode.next!=null) {
             (newNode.next).previous = newNode;
         }else {
@@ -79,7 +81,7 @@ public class LinkedList <E> {
 
     //return the same list without the first element
     //the first element is eliminted
-    public LinkedList<E> end(){
+    public DoublyLinkedList<E> end(){
         if(first == null){// esto tendria qe cambiarlo por un log de "list is empty"
             return this;
         }else if(first == last){
@@ -97,7 +99,7 @@ public class LinkedList <E> {
    /** return the same list without the last element */
     //the last element is eliminted
     //need almost two elements
-    public LinkedList<E> beginning(){
+    public DoublyLinkedList<E> beginning(){
         if(first == null){// esto tendria qe cambiarlo por un log de "list is empty"
             System.out.println("error: list is empty");
             return this;
@@ -114,15 +116,14 @@ public class LinkedList <E> {
     }
     /** delete the node */
     //Falta comprobar que el nodo exita eso es O(n) con n=size
-    public void deleteNode(Nodo<E> node){
+    public void deleteNode(Node<E> node){
         if (node == null || first==null) {
             System.out.println("error: node cannot be null or list is empty");
             return;
         }
-        if (node == first) {
-            first = node.next;
-        }
-        if (node == last){last = node;}
+        if (node == first) {first = node.next;}
+        if (node == last){last = node.previous;}
+
         if (node.next!=null){//is not the last
             node.previous.next = node.next;
         }
@@ -142,11 +143,11 @@ public class LinkedList <E> {
         return (first!=null)?this.last.value:null;
     }
     /** get first node */
-    public Nodo<E> firstNodo(){
+    public Node<E> firstNode(){
         return (first!=null)?this.first:null;
     }
     /** get last node */
-    public Nodo<E> lastNodo(){
+    public Node<E> lastNode(){
         return (first!=null)?this.last:null;
     }
     /** return size of list*/
@@ -155,8 +156,8 @@ public class LinkedList <E> {
     }
 
     /** print the doubly linked list: starting for "node"  */
-    public void printlist(Nodo<E> node) {
-        Nodo<E> aux = node;
+    public void printlist(Node<E> node) {
+        Node<E> aux = node;
         while(aux!=null){
             System.out.print(aux.value+"-> ");
             aux = aux.next;
@@ -165,7 +166,7 @@ public class LinkedList <E> {
     }
     /** print all element in the list */
     public void printAll() {
-        Nodo<E> aux = first;
+        Node<E> aux = first;
         while(aux!=null){
             System.out.print(aux.value+"-> ");
             aux = aux.next;
