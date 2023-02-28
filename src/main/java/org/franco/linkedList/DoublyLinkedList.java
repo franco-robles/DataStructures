@@ -58,7 +58,8 @@ public class DoublyLinkedList<E> {
         size++;
     }
 
-    //Insertion in-between nodes
+    /**  Insertion in-between nodes
+     */
     //the prevNode has to exist on the list: i need check this
     //Falta comprobar que el nodo exita eso es O(n) con n=size
     public void addAfter(Node<E> prevNode, E value){
@@ -66,16 +67,18 @@ public class DoublyLinkedList<E> {
             System.out.println("error: node cannot be null");
             return;
         }
-        Node<E> newNode = new Node<E>(value);
-        newNode.next = prevNode.next;
-        newNode.previous = prevNode;
-        prevNode.next = newNode;
-        if(newNode.next!=null) {
-            (newNode.next).previous = newNode;
-        }else {
-            last = newNode;
+        if(this.isPresent(prevNode)){
+            Node<E> newNode = new Node<E>(value);
+            newNode.next = prevNode.next;
+            newNode.previous = prevNode;
+            prevNode.next = newNode;
+            if (newNode.next != null) {
+                (newNode.next).previous = newNode;
+            } else {
+                last = newNode;
+            }
+            size++;
         }
-        size++;
     }
 
 
@@ -115,22 +118,41 @@ public class DoublyLinkedList<E> {
         return this;
     }
     /** delete the node */
-    //Falta comprobar que el nodo exita eso es O(n) con n=size
     public void deleteNode(Node<E> node){
         if (node == null || first==null) {
             System.out.println("error: node cannot be null or list is empty");
             return;
         }
-        if (node == first) {first = node.next;}
-        if (node == last){last = node.previous;}
+        if(this.isPresent(node)){
+            if (node == first) {
+                first = node.next;
+            }
+            if (node == last) {
+                last = node.previous;
+            }
 
-        if (node.next!=null){//is not the last
-            node.previous.next = node.next;
+            if (node.next != null) {//is not the last
+                node.previous.next = node.next;
+            }
+            if (node.previous != null) {
+                node.previous.next = node.next;
+            }
+            size--;
         }
-        if (node.previous != null) {
-            node.previous.next = node.next;
+    }
+
+    /** return true if node is present in the list, false otherwase : Complexity O(n)*/
+    public boolean isPresent(Node<E> node){
+        Node<E> aux= first;
+        boolean found = false;
+        while(!found && aux!=null ){
+            if (aux == node) {
+                found = true;
+            }else {
+                aux = aux.next;
+            }
         }
-        size--;
+        return found;
     }
 
     /** get first value */
@@ -173,6 +195,5 @@ public class DoublyLinkedList<E> {
         }
         System.out.println();
     }
-
 
 }
