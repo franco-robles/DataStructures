@@ -1,12 +1,12 @@
-package org.franco.linkedList;
+package org.franco.node;
 
-public class Nodo <E>{
+public class Node<E>{
     public E value;
-    public Nodo<E> next;
-    public Nodo<E> previous;
+    public Node<E> next;
+    public Node<E> previous;
 
     //Constructors
-    public Nodo(E value){
+    public Node(E value){
         this.value = value;
         next =null;
         previous = null;
