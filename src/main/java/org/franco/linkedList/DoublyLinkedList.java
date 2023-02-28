@@ -61,7 +61,6 @@ public class DoublyLinkedList<E> {
     /**  Insertion in-between nodes
      */
     //the prevNode has to exist on the list: i need check this
-    //Falta comprobar que el nodo exita eso es O(n) con n=size
     public void addAfter(Node<E> prevNode, E value){
          if(prevNode ==null) {
             System.out.println("error: node cannot be null");
