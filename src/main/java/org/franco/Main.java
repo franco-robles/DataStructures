@@ -19,11 +19,15 @@ public class Main {
         lista.addFront(4);
         lista.end();
 
+        System.out.println(lista.isPresent(lista.firstNode().next));
+        Node<Integer> noso = new Node<>(2);
+        System.out.println(lista.isPresent(noso));
         Node<Integer> node = lista.firstNode();
         while(node !=null){
             System.out.print(node.value+"->next: ");
             node = node.next;
         }
+
         System.out.println("");
         Node<Integer> nodeLast = lista.lastNode();
         while(nodeLast !=null){
