@@ -17,19 +17,15 @@
 - It requires more space because of an extra pointer.
 - It has multiple usages. It can be implemented on the stack, heap, and binary tree.
 
-##### complexity:
- - Insertion Operation 
-      1. Insert value at the front  O(1)
-      2. Insert value at the end of the list O(1)
-      3. Insert value after a specific node O(n). n = size list, because i need check if the node is present in the list
-      4. delete a node from the doubly linked list O(n). delete is O(1) but check if the node is present is O(n)
-      5.  
-      6. 
- -
- -
- -
+##### Time Complexity: 
+ - Insert value at the front  O(1)
+ - Insert value at the end O(1)
+ - Insert value after a specific node O(n). n = size , because i need check if the node is present in the list
+ - Delete a node from the list O(n). delete a node is O(1), but check if it is present is O(n)
+ - Search a node O(n)
+ - Get size O(1)
+ 
  -
  
-  
 
 
